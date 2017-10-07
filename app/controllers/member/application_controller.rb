@@ -1,4 +1,5 @@
 class Member::ApplicationController < ApplicationController
+  include Pundit
   acts_as_token_authentication_handler_for User
   before_action :require_authentication!
 

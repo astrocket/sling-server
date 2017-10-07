@@ -12,5 +12,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-password = SecureRandom.base64
-User.create(email: 'admin@sling.com', password: password, password_confirmation: password)
+manager = User.create(email: 'manager@sling.com', password: 'gksruf', password_confirmation: 'gksruf')
+manager.add_role :manager
+user = User.create(email: 'user@sling.com', password: 'gksruf', password_confirmation: 'gksruf' )
+user.add_role :member
+g = Group.create(manager: manager, name: 'Sling', category: 'Sports')
+
+g.users << user
+g.save
+
+puts "groups users : #{g.users}\n"
+puts "group's manager : #{g.manager}\n"
+puts "user's groups : #{user.groups}\n"
+puts "managing groups : #{manager.managing_groups}\n"
