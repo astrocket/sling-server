@@ -1,0 +1,77 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    var IMP = window.IMP;
+    IMP.init('imp58386990');
+    console.log("이니시에이트");
+    var params = {
+      pg: '<%= @req[:pg] %>',
+      pay_method: '<%= @req[:pay_method] %>',
+      merchant_uid: '<%= @req[:merchant_uid] %>_' + new Date().getTime(),
+      name: '<%= @req[:product_name] %>',
+      amount: '<%= @req[:amount] %>', //여기 json 으로 받아야한다.
+      buyer_email: '<%= @req[:buyer_email] %>',
+      buyer_name: "<%= @req[:buyer_name] %>",
+      m_redirect_url: "<%= @ip %>/users/<%= @req[:key] %>/mobile"
+    };
+    console.log("전송되기직전임.");
+    IMP.request_pay(params,
+        function (rsp) {
+          if (rsp.success) {
+            //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+            $.ajax({
+              url: "<%= @ip %>/paygate", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+              type: 'POST',
+              dataType: 'json',
+              data: {
+                paygate: {
+                  key: '<%= @req[:key] %>',
+                  product_id: '<%= @req[:product_id] %>',
+                  merchant_uid: rsp.merchant_uid,
+                  imp_uid: rsp.imp_uid, //string
+                  pg_provider: rsp.pg_provider,
+                  permission: rsp.success, //boolean
+                  name: rsp.name, //string
+                  amount: rsp.paid_amount, //number
+                  buyer_email: rsp.buyer_email,
+                  buyer_tel: rsp.buyer_tel,
+                  buyer_name: rsp.buyer_name,
+                  status: rsp.status, //string (ready, paid, cancelled, failed)
+                  receipt_url: rsp.receipt_url //string
+                }
+              }
+            }).done(function (data) {
+              console.log("결제성공함.");
+              var win = window.open('', '_self');
+              win.close();
+            }).fail(function (data) {
+              console.log("결제페일함.");
+              var win = window.open('', '_self');
+              win.close();
+            });
+          } else {
+            var msg = '결제에 실패하였습니다.';
+            msg += '\n에러내용 : ' + rsp.error_msg;
+
+            alert(msg);
+            console.log("결제실패함.");
+            var win = window.open('', '_self');
+            win.close();
+          }
+        });
+  });
+</script>
+
+<div class="full-box d-flex flex-row justify-content-center align-items-center">
+  <div class="loading-image">
+    <img src="https://s3.ap-northeast-2.amazonaws.com/qnv-s3-test/ruby-pay/cooni-loading.gif" alt="처리중">
+  </div>
+</div>
+
+<style>
+  .full-box {
+    width: 100vw;
+    height: 100vh;
+  }
+</style>

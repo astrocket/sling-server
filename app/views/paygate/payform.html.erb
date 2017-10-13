@@ -1,0 +1,146 @@
+<div class="container mt-3 sling-container sling-flex-row-start">
+  <form target="_blank" action="<%= @ip %>/paygate/gateway" method="POST" name="form_payment" id="form_payment" class="sling-form">
+    <div class="card sling-card">
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-6">
+            <img class="sling-img" src="<%= @picture %>" alt="Card image cap">
+          </div>
+          <div class="col-6 d-flex flex-column justify-content-between">
+            <h4 class="card-title"><%= @product.name %></h4>
+            <h6 class="card-text text-right"><%= number_to_currency(@product.price, unit: '₩', precision: 0) %></h6>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <div class="col">
+            <input class="form-control" type="tel" id="buyer_tel" name="paygate[buyer_tel]" value="<%= @user.user_detail.phone %>" placeholder="알림문자용 핸드폰 번호" id="example-tel-input" required>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <input class="form-control" type="email" id="buyer_email" name="paygate[buyer_email]" value="<%= @user.email %>" placeholder="영수증 발행용 이메일" id="example-email-input" required>
+          </div>
+        </div>
+        <div class="btn-group sling-form-options sling-top" data-toggle="buttons">
+          <label class="btn btn-outline-info w-100 active sling-flex-row-center sling-option">
+            <input type="radio" name="paygate[pay_method]" id="option2" autocomplete="off" value="card"> 카드결제
+          </label>
+          <label class="btn btn-outline-info w-100 sling-flex-row-center sling-option">
+            <input type="radio" name="paygate[pay_method]" id="option1" autocomplete="off" value="phone"> 휴대폰결제
+          </label>
+          <label class="btn btn-outline-info w-100 sling-flex-row-center sling-option">
+            <input type="radio" name="paygate[pay_method]" id="option3" autocomplete="off" value="cultureland"> 문화상품권
+          </label>
+        </div>
+      </div>
+    </div>
+    <input id="pg" type="hidden" name="paygate[pg]" value="html5_inicis">
+    <input id="merchant_uid" type="hidden" name="paygate[merchant_uid]" value="<%= @product.id %>_<%= @user.id %>">
+    <input id="product_name" type="hidden" name="paygate[product_name]" value="<%= @product.name %>">
+    <input id="price" type="hidden" name="paygate[amount]" value="1000">
+    <input id="product_id" type="hidden" name="paygate[product_id]" value="<%= @product.id %>">
+    <input id="key" type="hidden" name="paygate[key]" value="<%= @user.key %>">
+    <input id="buyer_name" type="hidden" name="paygate[buyer_name]" value="<%= @user.user_detail.name %>">
+    <div class="form-submit sling-submit-container">
+      <button id="paybutton" class="btn btn-outline-info btn-lg btn-block sling-submit-button">결제시작</button>
+    </div>
+  </form>
+</div>
+
+<style>
+  .sling-flex-row-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .sling-flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sling-container {
+    max-width: 500px;
+  }
+
+  .sling-card {
+    border-radius: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
+
+  .sling-card .card-body {
+    border-radius: 0;
+    padding: 0.75rem;
+  }
+
+  .sling-img {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .sling-form {
+    width: 100%;
+  }
+
+  .sling-top {
+  }
+
+  .sling-form-options {
+    display: flex;
+    height: 10vh;
+    max-height: 120px;
+  }
+
+  .sling-option {
+    border-radius: 0;
+    margin-top: .5rem;
+  }
+
+  .sling-submit-container {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 30px);
+    max-width: 470px;
+    background-color: white;
+    z-index: 2020;
+  }
+
+  .sling-submit-button {
+    border-radius: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .sling-submit-button:hover {
+    background-color: #5bc0de;
+  }
+
+  .btn-outline-info {
+    color: black;
+    background-image: none;
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, .15);
+  }
+
+  .btn-outline-info.active, .btn-outline-info:focus {
+    background: #4d94ff; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* Standard syntax (must be last) */
+  }
+
+  .btn-outline-info:hover {
+    background: #4d94ff; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, rgb(12, 157, 197), rgb(201, 109, 216)); /* Standard syntax (must be last) */
+  }
+
+</style>

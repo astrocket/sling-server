@@ -8,8 +8,8 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+# Use mysql as the database for Active Record
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -45,3 +45,14 @@ gem 'devise'
 gem 'simple_token_authentication', '~> 1.0' # see semver.org
 gem 'pundit'
 gem "rolify"
+
+# logic
+gem "active_model_serializers"
+gem "paperclip"
+gem 'aws-sdk', '< 3.0'
+
+# db
+gem 'search_cop'
+
+# payment
+gem 'iamport', github: 'iamport/iamport-rest-client-ruby'

@@ -1,4 +1,4 @@
-class Member::GroupPolicy < Member::ApplicationPolicy
+class Member::ActivityPolicy < Member::ApplicationPolicy
 
   class Scope < Scope
     def resolve
@@ -6,7 +6,7 @@ class Member::GroupPolicy < Member::ApplicationPolicy
     end
   end
 
-  # record 에는 [:member, @group] 이렇게 들어 있음
+  # record 에는 [:member, @activity] 이렇게 들어 있음
   def show?
     record[1].users.include?(user)
   end
