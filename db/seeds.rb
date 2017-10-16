@@ -19,7 +19,7 @@ devp.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone
 devp.update_attributes!(authentication_token: 'test_token_prime')
 puts "Prime Dev created"
 
-1.times.each do |i|
+5.times.each do |i|
   sex = ['girl', 'boy'].sample
   user = User.create(email: "user-candidate#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate
@@ -27,7 +27,7 @@ puts "Prime Dev created"
   puts "#{user.email} created !"
 end
 
-1.times.each do |i|
+20.times.each do |i|
   sex = ['girl', 'boy'].sample
   user = User.create(email: "user-ㅡmember#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate
@@ -36,7 +36,7 @@ end
   puts "#{user.email} created !"
 end
 
-1.times.each do |i|
+60.times.each do |i|
   sex = ['girl', 'boy'].sample
   user = User.create(email: "user-prime#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate
