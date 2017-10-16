@@ -10,6 +10,10 @@ Rails.application.routes.draw do
         get :my_index
         get :search
       end
+      member do
+        get :my_index_show
+        post :join
+      end
     end
     resources :activities, only: [:index, :show] do
       collection do

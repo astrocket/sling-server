@@ -12,4 +12,8 @@ class Group < ApplicationRecord
     attributes group_detail: ["group_detail.name", "group_detail.about"]
   end
 
+  def paid_users
+    self.users
+  end
+
 end

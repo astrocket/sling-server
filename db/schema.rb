@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015083326) do
+ActiveRecord::Schema.define(version: 20171016071259) do
 
   create_table "activations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.bigint "activity_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20171015083326) do
     t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "paid", default: false
     t.index ["group_id"], name: "index_groupings_on_group_id"
     t.index ["user_id"], name: "index_groupings_on_user_id"
   end
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(version: 20171015083326) do
     t.bigint "spot_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "paid", default: false
     t.index ["spot_id"], name: "index_spotings_on_spot_id"
     t.index ["user_id"], name: "index_spotings_on_user_id"
   end
@@ -145,6 +147,7 @@ ActiveRecord::Schema.define(version: 20171015083326) do
     t.datetime "pic_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
     t.index ["user_id"], name: "index_user_details_on_user_id"
   end
 
