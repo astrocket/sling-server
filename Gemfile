@@ -56,3 +56,14 @@ gem 'search_cop'
 
 # payment
 gem 'iamport', github: 'iamport/iamport-rest-client-ruby'
+
+# deployment
+# Use Capistrano for deployment
+gem 'capistrano-rbenv', '~> 2.0'
+gem 'capistrano-rbenv-install', '~> 1.2.0'
+gem 'capistrano-rails', group: :development
+gem 'capistrano3-puma' , group: :development
+gem 'capistrano-figaro-yml', '~> 1.0.2'
+gem 'capistrano-upload-config'
+gem 'capistrano3-nginx', '~> 2.0'
+gem 'capistrano-rails-collection'
