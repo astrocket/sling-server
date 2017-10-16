@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :groups, through: :groupings
   has_many :activations
   has_many :activities, through: :activations
+  has_many :spotings
+  has_many :spots, through: :spotings
   has_one :user_detail
   has_many :web_purchases
 
