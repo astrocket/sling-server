@@ -1,0 +1,15 @@
+default: &default
+  adapter: mysql2
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  socket: /tmp/mysql.sock
+  charset: utf8mb4
+  collation: utf8mb4_bin
+  encoding: utf8mb4
+
+production:
+  <<: *default
+  database: <%= ENV['SLING_DATABASE_DATABASE'] %>
+  username: <%= ENV['SLING_DATABASE_USERNAME'] %>
+  password: <%= ENV['SLING_DATABASE_PASSWORD'] %>
+  host: <%= ENV['SLING_DATABASE_HOST'] %>
+  port: <%= ENV['SLING_DATABASE_PORT'] %>
