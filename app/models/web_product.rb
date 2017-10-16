@@ -1,15 +1,19 @@
 class WebProduct < ApplicationRecord
   before_create :set_product_name
-  belongs_to :group
+
+  belongs_to :product, polymorphic: true
   has_many :web_purchases
 
   private
 
     def set_product_name
       name = '슬링 결제 상품'
-      name = self.group.group_detail.name if self.group.present?
-      # name = self.spot.spot_detail.name if self.spot.present?
-
+      parent = self.product
+      if parent.class.name == 'Group'
+        name = parent.group_detail.name
+      elsif parent.class.name == 'Spot'
+        name = parent.spot_detail.name
+      end
       self.name = name
     end
 

@@ -7,19 +7,19 @@
             <img class="sling-img" src="<%= @picture %>" alt="Card image cap">
           </div>
           <div class="col-6 d-flex flex-column justify-content-between">
-            <h4 class="card-title"><%= @product.name %></h4>
-            <h6 class="card-text text-right"><%= number_to_currency(@product.price, unit: '₩', precision: 0) %></h6>
+            <h4 class="card-title"><%= @web_product.name %></h4>
+            <h6 class="card-text text-right"><%= number_to_currency(@web_product.price, unit: '₩', precision: 0) %></h6>
           </div>
         </div>
         <hr>
         <div class="form-group row">
           <div class="col">
-            <input class="form-control" type="tel" id="buyer_tel" name="paygate[buyer_tel]" value="<%= @user.user_detail.phone %>" placeholder="알림문자용 핸드폰 번호" id="example-tel-input" required>
+            <input class="form-control" type="tel" id="buyer_tel" name="paygate[buyer_tel]" value="" placeholder="알림문자용 핸드폰 번호" id="example-tel-input" required>
           </div>
         </div>
         <div class="form-group row">
           <div class="col">
-            <input class="form-control" type="email" id="buyer_email" name="paygate[buyer_email]" value="<%= @user.email %>" placeholder="영수증 발행용 이메일" id="example-email-input" required>
+            <input class="form-control" type="email" id="buyer_email" name="paygate[buyer_email]" value="" placeholder="영수증 발행용 이메일" id="example-email-input" required>
           </div>
         </div>
         <div class="btn-group sling-form-options sling-top" data-toggle="buttons">
@@ -36,10 +36,10 @@
       </div>
     </div>
     <input id="pg" type="hidden" name="paygate[pg]" value="html5_inicis">
-    <input id="merchant_uid" type="hidden" name="paygate[merchant_uid]" value="<%= @product.id %>_<%= @user.id %>">
-    <input id="product_name" type="hidden" name="paygate[product_name]" value="<%= @product.name %>">
-    <input id="price" type="hidden" name="paygate[amount]" value="1000">
-    <input id="product_id" type="hidden" name="paygate[product_id]" value="<%= @product.id %>">
+    <input id="merchant_uid" type="hidden" name="paygate[merchant_uid]" value="<%= @web_product.id %>_<%= @user.id %>">
+    <input id="product_name" type="hidden" name="paygate[product_name]" value="<%= @web_product.name %>">
+    <input id="price" type="hidden" name="paygate[amount]" value="<%= @web_product.price %>">
+    <input id="product_id" type="hidden" name="paygate[product_id]" value="<%= @web_product.id %>">
     <input id="key" type="hidden" name="paygate[key]" value="<%= @user.key %>">
     <input id="buyer_name" type="hidden" name="paygate[buyer_name]" value="<%= @user.user_detail.name %>">
     <div class="form-submit sling-submit-container">
