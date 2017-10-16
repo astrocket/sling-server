@@ -39,6 +39,23 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+    'SLING_DATABASE_HOST' => ENV['SLING_DATABASE_HOST'],
+    'SLING_DATABASE_PORT' => ENV['SLING_DATABASE_PORT'],
+    'SLING_DATABASE_USERNAME' => ENV['SLING_DATABASE_USERNAME'],
+    'SLING_DATABASE_PASSWORD' => ENV['SLING_DATABASE_PASSWORD'],
+    'SLING_DATABASE_DATABASE' => ENV['SLING_DATABASE_DATABASE'],
+    'SLING_SECRET_KEY_BASE' => ENV['SLING_SECRET_KEY_BASE'],
+    'SLING_S3_BUCKET' => ENV['SLING_S3_BUCKET'],
+    'SLING_ACCESS_KEY' => ENV['SLING_ACCESS_KEY'],
+    'SLING_SECRET_KEY' => ENV['SLING_SECRET_KEY'],
+    'SLING_FACEBOOK_APP' => ENV['SLING_FACEBOOK_APP'],
+    'SLING_FACEBOOK_SECRET' => ENV['SLING_FACEBOOK_SECRET'],
+    'SLING_EC2_IP' => ENV['SLING_EC2_IP'],
+    'SLING_EC2_DOMAIN' => ENV['SLING_EC2_DOMAIN'],
+    'SLING_IAMPORT_API_KEY' => ENV['SLING_IAMPORT_API_KEY'],
+    'SLING_IAMPORT_API_SECRET' => ENV['SLING_IAMPORT_API_SECRET']
+}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
