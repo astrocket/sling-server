@@ -4,7 +4,7 @@ if Rails.env == 'production'
   Paperclip::Attachment.default_options[:s3_region] = 'ap-northeast-2'
   Paperclip::Attachment.default_options[:s3_host_name] = 's3-ap-northeast-2.amazonaws.com'
   Paperclip::Attachment.default_options[:s3_credentials] = {
-      :bucket => ENV['SLING_S3_BUCKET'],
+      :bucket => 'slingfamily',
       :access_key_id => ENV['SLING_ACCESS_KEY'],
       :secret_access_key => ENV['SLING_SECRET_KEY']
   }

@@ -12,7 +12,12 @@ class GroupSerializer < ActiveModel::Serializer
   has_one :manager
 
   def paid_group
-    Grouping.where(group: object, user: current_user).take.paid
+    grouping = Grouping.where(group: object, user: current_user).take
+    if grouping
+      grouping.paid
+    else
+      false
+    end
   end
 
 end
