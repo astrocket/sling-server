@@ -11,12 +11,8 @@ class Member::GroupPolicy < Member::ApplicationPolicy
     user.has_role? :prime
   end
 
-  def show?
-
-  end
-
   def my_index_show?
-    user.has_role? :prime && record[1].users.include?(user)
+    user.has_role? :prime and record[1].users.include?(user)
   end
 
 end

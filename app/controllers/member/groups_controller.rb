@@ -43,7 +43,7 @@ class Member::GroupsController < Member::ApplicationController
   # member, prime => 누르면 show 로 보낸다.
   def search
     if params[:category]
-      if params[:category] === 'all'
+      if params[:category] == 'all'
         @groups = Group.where.not(id: current_user.groups.ids).search(params[:query])
       else
         @groups = Group.where.not(id: current_user.groups.ids).where(category: params[:category]).search(params[:query])
