@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :users do
+    post 'facebook_callbacks/facebook'
+  end
+
   namespace :member do
     resources :groups, only: [:index, :show] do
       collection do
@@ -8,6 +12,11 @@ Rails.application.routes.draw do
       end
     end
     resources :activities, only: [:index, :show] do
+      collection do
+        get :my_index
+      end
+    end
+    resources :spots, only: [:index, :show] do
       collection do
         get :my_index
       end

@@ -10,7 +10,8 @@ class SlingIamport
     imp = parsed_imp.reject { |key, value| !WebPurchase.attribute_names.include?(key) }
 
     web_purchase = nil
-    if parsed_imp['status'] == 'paid' && @product.price == parsed_imp[:amount]
+
+    if parsed_imp['status'] == 'paid' && @product.price == parsed_imp['amount']
       web_purchase = @product.web_purchases.new(imp)
       web_purchase.user = @user
       web_purchase.permission = true

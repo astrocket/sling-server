@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  FB = 'facebook'
+  KAKAO = 'kakao'
+
   rolify
   acts_as_token_authenticatable
   include SearchCop
@@ -27,6 +30,26 @@ class User < ApplicationRecord
     attributes :key
 
     options :key, :type => :fulltext
+  end
+
+  # Facebook Auth
+  def self.from_fb_omniauth(auth)
+    if exists?(provider: FB, fb_uid: auth["id"])
+      where(provider: FB, fb_uid:  auth["id"]).first
+    elsif exists?(provider: KAKAO, email: auth["email"]) # 카카오로 이미 가입한 동일 이메일 회원일 경우
+      user = where(provider: nil, email: auth["email"]).first
+      user.provider = FB
+      user.fb_uid =  auth["id"]
+      user.save
+      user
+    else
+      create do |user|
+        user.provider = FB
+        user.fb_uid =  auth["id"]
+        user.email = auth["email"] || "#{FB}-#{auth["id"]}@sling.com"
+        user.password = Devise.friendly_token[0,20]
+      end
+    end
   end
 
   private

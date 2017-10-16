@@ -6,7 +6,7 @@ class Group < ApplicationRecord
   has_many :users, through: :groupings
   has_one :group_detail
   has_many :activities
-  has_one :web_product
+  has_one :web_product, as: :product
 
   search_scope :search do
     attributes group_detail: ["group_detail.name", "group_detail.about"]

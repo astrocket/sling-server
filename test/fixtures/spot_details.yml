@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spot: one
+  name: MyString
+  about: MyText
+  location: MyString
+  schedule: 2017-10-14 02:10:33
+  pic: 
+
+two:
+  spot: two
+  name: MyString
+  about: MyText
+  location: MyString
+  schedule: 2017-10-14 02:10:33
+  pic: 

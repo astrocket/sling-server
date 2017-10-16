@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013045728) do
+ActiveRecord::Schema.define(version: 20171015083326) do
 
   create_table "activations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.bigint "activity_id"
@@ -95,6 +95,40 @@ ActiveRecord::Schema.define(version: 20171013045728) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "spot_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.bigint "spot_id"
+    t.string "name"
+    t.text "about"
+    t.string "location"
+    t.datetime "schedule"
+    t.string "pic_file_name"
+    t.string "pic_content_type"
+    t.integer "pic_file_size"
+    t.datetime "pic_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_spot_details_on_spot_id"
+  end
+
+  create_table "spotings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.bigint "user_id"
+    t.bigint "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_spotings_on_spot_id"
+    t.index ["user_id"], name: "index_spotings_on_user_id"
+  end
+
+  create_table "spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.bigint "organizer_id"
+    t.string "category"
+    t.boolean "premium"
+    t.integer "users_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organizer_id"], name: "index_spots_on_organizer_id"
+  end
+
   create_table "user_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.bigint "user_id"
     t.string "name"
@@ -131,6 +165,9 @@ ActiveRecord::Schema.define(version: 20171013045728) do
     t.string "key"
     t.integer "groups_count"
     t.integer "activities_count"
+    t.integer "spots_count"
+    t.string "provider"
+    t.string "fb_uid"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["key"], name: "index_users_on_key", type: :fulltext
@@ -146,12 +183,13 @@ ActiveRecord::Schema.define(version: 20171013045728) do
   end
 
   create_table "web_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
-    t.bigint "group_id"
+    t.string "product_type"
+    t.bigint "product_id"
     t.string "name"
     t.integer "price", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_web_products_on_group_id"
+    t.index ["product_type", "product_id"], name: "index_web_products_on_product_type_and_product_id"
   end
 
   create_table "web_purchases", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
@@ -181,5 +219,8 @@ ActiveRecord::Schema.define(version: 20171013045728) do
   add_foreign_key "group_details", "groups"
   add_foreign_key "groupings", "groups"
   add_foreign_key "groupings", "users"
+  add_foreign_key "spot_details", "spots"
+  add_foreign_key "spotings", "spots"
+  add_foreign_key "spotings", "users"
   add_foreign_key "user_details", "users"
 end
