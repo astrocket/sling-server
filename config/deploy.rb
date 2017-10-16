@@ -66,7 +66,7 @@ set :nginx_use_ssl, true
 
 # Name of SSL certificate file
 set :nginx_ssl_certificate, '/etc/letsencrypt/live/slingfamily.com/fullchain.pem'
-set :nginx_ssl_certificate_key, '/etc/letsencrypt/live/slingfamily.comm/privkey.pem'
+set :nginx_ssl_certificate_key, '/etc/letsencrypt/live/slingfamily.com/privkey.pem'
 
 before 'deploy:check:linked_files', 'config:push'
 before 'deploy:starting', 'figaro_yml:setup'

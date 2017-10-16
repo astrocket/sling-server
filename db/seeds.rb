@@ -1,3 +1,8 @@
+
+user = User.create(email: "dev@sling.com", password: 'reactnative')
+user.add_role [:candidate, :member, :prime]
+user.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: 'https://pi.tedcdn.com/r/pe.tedcdn.com/images/ted/0ef62e4df27b4ba7294de889fdbc33e476a08ec9_254x191.jpg?')
+
 100.times.each do |i|
   user = User.create(email: "user-#{i}@sling.com", password: 'gksruf')
   user.add_role [:candidate, :member, :prime]
