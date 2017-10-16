@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :groups, through: :groupings
   has_many :activations
   has_many :activities, through: :activations
+  has_many :organizing_spots, class_name: 'Spot', foreign_key: :organizer_id
   has_many :spotings
   has_many :spots, through: :spotings
   has_one :user_detail
