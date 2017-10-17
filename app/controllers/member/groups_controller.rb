@@ -13,7 +13,7 @@ class Member::GroupsController < Member::ApplicationController
   # GET /member/groups/1
   # 미리보기로 맛보기를 시켜준다.
   # member => 신청 누르면 구독으로 보낸다.
-  # prime => 신청 누르면 join 시켜준다. join/@group.id로 post 날린다.
+  # prime => 신청 누르면 join 시켜준다. /@group.id/join로 post 날린다.
   def show
     authorize [:member, @group] #이렇게 부르면 policy 에서 record[1] 로 꺼내야 object 를 받을 수 있다.
 
@@ -56,6 +56,7 @@ class Member::GroupsController < Member::ApplicationController
   end
 
   #prime 만 그룹에 조인 가능
+  # 그룹의 경우에는 조인 => 결제 가 나뉜다.
   def join
     authorize [:member, @group]
 

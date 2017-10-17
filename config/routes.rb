@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       collection do
         get :my_index
       end
+      member do
+        post :join
+      end
     end
     get 'home/index'
   end

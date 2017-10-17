@@ -61,7 +61,11 @@ class PaygateController < ApplicationRenderController
   private
 
     def set_ip
-      @ip = "https://#{ENV['SLING_EC2_DOMAIN']}" || 'http://localhost:3000'
+      if Rails.env == 'production'
+        @ip = "https://#{ENV['SLING_EC2_DOMAIN']}" || 'http://localhost:3000'
+      else
+        @ip = 'http://localhost:3000'
+      end
     end
 
     def set_user

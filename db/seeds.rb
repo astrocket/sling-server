@@ -1,14 +1,14 @@
 devc = User.create(email: "candidate@sling.com", password: 'reactnative')
 devc.add_role :candidate
 devc.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
-devc.update_attributes!(authentication_token: 'test_token_candidate')
+devc.update_attributes!(authentication_token: 'test_token_candidate', key: 'test_key_candidate')
 puts "Candidate Dev created"
 
 devm = User.create(email: "member@sling.com", password: 'reactnative')
 devm.add_role :candidate
 devm.add_role :member
 devm.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
-devm.update_attributes!(authentication_token: 'test_token_member')
+devm.update_attributes!(authentication_token: 'test_token_member', key: 'test_key_member')
 puts "Member Dev created"
 
 devp = User.create(email: "prime@sling.com", password: 'reactnative')
@@ -16,7 +16,7 @@ devp.add_role :candidate
 devp.add_role :member
 devp.add_role :prime
 devp.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
-devp.update_attributes!(authentication_token: 'test_token_prime')
+devp.update_attributes!(authentication_token: 'test_token_prime', key: 'test_key_prime')
 puts "Prime Dev created"
 
 5.times.each do |i|
@@ -95,7 +95,7 @@ puts "==== All Group created ! ===="
 
 User.with_role(:member).sample(10).each_with_index do |u, i|
   spot = Spot.create!(organizer: u, category: ['연예인', '전문직', '고급강의', '컨설팅', '상담'].sample)
-  spot.create_spot_detail!(name: "Spot-#{i}", about: '해당 스팟에 대한 소개 입니다. 얼른 참여해서 즐거운 시간 보내셔요', location: '굿브라더 강남점', schedule: DateTime.now + 4.days, pic: 'https://i.pinimg.com/originals/44/a2/d0/44a2d0b2d4a25962c619d0645c8b2499.jpg')
+  spot.create_spot_detail!(name: "Spot-#{i}", about: '해당 스팟에 대한 소개 입니다. 얼른 참여해서 즐거운 시간 보내셔요', location: '굿브라더 강남점', schedule: DateTime.now + 4.days, pic: 'http://ahdzbook.com/data/out/174/hdwp694800552.jpg')
   spot.save!
   puts "Spot-#{i} created !"
   product = spot.create_web_product!(price: 1500)
