@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  group: one
+  post: one
   user: one
   content: MyText
-  comments_count: 1
 
 two:
-  group: two
+  post: two
   user: two
   content: MyText
-  comments_count: 1

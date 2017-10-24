@@ -1,13 +1,13 @@
 devc = User.create(email: "candidate@sling.com", password: 'reactnative')
 devc.add_role :candidate
-devc.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
+devc.create_user_detail(name: '개발팀-candidate', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
 devc.update_attributes!(authentication_token: 'test_token_candidate', key: 'test_key_candidate')
 puts "Candidate Dev created"
 
 devm = User.create(email: "member@sling.com", password: 'reactnative')
 devm.add_role :candidate
 devm.add_role :member
-devm.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
+devm.create_user_detail(name: '개발팀-member', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
 devm.update_attributes!(authentication_token: 'test_token_member', key: 'test_key_member')
 puts "Member Dev created"
 
@@ -15,7 +15,7 @@ devp = User.create(email: "prime@sling.com", password: 'reactnative')
 devp.add_role :candidate
 devp.add_role :member
 devp.add_role :prime
-devp.create_user_detail(name: '개발팀', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
+devp.create_user_detail(name: '개발팀-prime', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '구글', position: 'CEO', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open('app/assets/images/girl_sample.jpg'), gender: 'F')
 devp.update_attributes!(authentication_token: 'test_token_prime', key: 'test_key_prime')
 puts "Prime Dev created"
 
@@ -23,7 +23,7 @@ puts "Prime Dev created"
   sex = ['girl', 'boy'].sample
   user = User.create(email: "user-candidate#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate
-  user.create_user_detail(name: '대기자', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '디자이너', company: '페이스북', position: '인턴', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
+  user.create_user_detail(name: "대기자-#{i}", birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '디자이너', company: '페이스북', position: '인턴', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
   puts "#{user.email} created !"
 end
 
@@ -32,7 +32,7 @@ end
   user = User.create(email: "user-member#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate
   user.add_role :member
-  user.create_user_detail(name: '일반인', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '기획자', company: '페이스북', position: '팀장', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
+  user.create_user_detail(name: "일반인-#{i}", birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '기획자', company: '페이스북', position: '팀장', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
   puts "#{user.email} created !"
 end
 
@@ -42,7 +42,7 @@ end
   user.add_role :candidate
   user.add_role :member
   user.add_role :prime
-  user.create_user_detail(name: '정회원', birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '페이스북', position: '개발팀장', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
+  user.create_user_detail(name: "정회원-#{i}", birth: DateTime.now - 26.years, phone: '010-1111-1111', job: '개발자', company: '페이스북', position: '개발팀장', interested_area: '[강남, 건대, 신촌]', interested_field: '[낚시, 게임, 파티]', pic: File.open("app/assets/images/#{sex}_sample.jpg"), gender: "#{sex == 'girl' ? 'F' : 'M'}")
   puts "#{user.email} created !"
 end
 
@@ -51,7 +51,7 @@ puts "==== All User created ===="
 10.times.each do |m|
   # 그룹장 생성
   manager = User.create(email: "manager-#{m}@sling.com", password: 'gksruf')
-  manager.create_user_detail(name: '손석희', birth: DateTime.now - 45.years, phone: '010-3384-2838', job: '앵커', company: 'JTBC', position: '사장', interested_area: '[일산, 강남]', interested_field: '[토론, 방송, 정의구현]', pic: File.open('app/assets/images/manager_sample.jpg'), gender: 'M')
+  manager.create_user_detail(name: "손석희-#{m}", birth: DateTime.now - 45.years, phone: '010-3384-2838', job: '앵커', company: 'JTBC', position: '사장', interested_area: '[일산, 강남]', interested_field: '[토론, 방송, 정의구현]', pic: File.open('app/assets/images/manager_sample.jpg'), gender: 'M')
   manager.add_role :candidate
   manager.add_role :member
   manager.add_role :prime
@@ -59,7 +59,7 @@ puts "==== All User created ===="
 
   # 그룹장 명의로 그룹생성하고 그룹의 결제상품 생성
   group = Group.create!(manager: manager, category: ['부동산', '등산', '와인', '파티'].sample)
-  group.create_group_detail!(name: "Group-#{m}", about: '해당 그룹에 대한 소개 입니다. 함께 즐거운 시간 보내요.', location: '강남', pic: 'https://media.newyorker.com/photos/5909522d6552fa0be682c09b/master/w_727,c_limit/denby-wolf-of-wall-street.jpg')
+  group.create_group_detail!(name: "Group-#{m}", about: '해당 그룹에 대한 소개 입니다. 함께 즐거운 시간 보내요. 우리 그룹에서는 프로그래밍에 대해서 배울 예정입니다. 가장 먼저 웹 개발의 기초인 HTML과 CSS에 대해서 간단하게 배우고, 생산성이 가장 뛰어난 웹 개발 프레임워크인 Ruby on Rails를 통해서 간단한 자기소개 웹 사이트를 만드는 것을 시작으로, 웹 개발의 전반적인 부분을 배울 예정입니다. 모임은 매주 수요일 저녁 8시에 진행되며, 2시간 동안 진행 됩니다. 노트북은 필수 지참입니다.', location: '강남', pic: 'https://media.newyorker.com/photos/5909522d6552fa0be682c09b/master/w_727,c_limit/denby-wolf-of-wall-street.jpg')
   group.save!
   puts "Group-#{m} created !"
 
@@ -89,6 +89,14 @@ puts "==== All User created ===="
     activity.create_activity_detail(name: "Activity-#{a}", about: '과거의 그룹의 액티비티 입니다. 참여했었어야죠.', location: '과거 cgv', schedule: DateTime.now - 3.days , pic: 'http://pds.joins.com/news/component/htmlphoto_mmdata/201309/16/htm_2013091616193924002420.jpg')
   end
 
+  #포스트 생성
+  25.times.each do |i|
+    p = Post.create!(group: group, user: group_users.sample, content: "#{group.group_detail.name}에 온것을 환영합니다. 저는 #{i}번째로 이글을 올리는 사람입니다. 서로 좋은 모임 되었으면 좋겠네요 !" )
+    3.times.each do |c|
+      p.comments.create!(user: group_users.sample, content: "그룹 공개 댓글 입니다-유저 #{c}")
+    end
+  end
+
 end
 puts "==== All Group created ! ===="
 # 스팟모임 생성
@@ -106,6 +114,14 @@ User.with_role(:member).sample(10).each_with_index do |u, i|
 
 end
 puts "==== All Spot created ! ===="
+
+# 전체 포스트 생성
+User.with_role(:prime).sample(20).each do |u|
+  p = u.posts.create!(content: "전체 공개 글 입니다-유저 #{u.id}")
+  3.times.each do |c|
+    p.comments.create!(user: u, content: "전체 공개 #{c}번째 댓글 입니다-유저 #{u.id}")
+  end
+end
 
 test = User.first
 puts "======= Successfully seeded ! ======\n"

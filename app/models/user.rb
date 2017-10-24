@@ -27,6 +27,8 @@ class User < ApplicationRecord
   has_one :user_detail
   has_many :web_purchases
   # 게시글
+  has_many :posts
+  has_many :comments
 
   search_scope :search_by_key do
     attributes :key

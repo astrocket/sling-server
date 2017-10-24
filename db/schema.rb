@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016071259) do
+ActiveRecord::Schema.define(version: 20171024061026) do
 
   create_table "activations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.bigint "activity_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20171016071259) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "users_list"
     t.index ["group_id"], name: "index_activities_on_group_id"
   end
 
@@ -44,6 +45,16 @@ ActiveRecord::Schema.define(version: 20171016071259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_activity_details_on_activity_id"
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.bigint "post_id"
+    t.bigint "user_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "group_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
@@ -77,12 +88,19 @@ ActiveRecord::Schema.define(version: 20171016071259) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "users_list"
     t.index ["manager_id"], name: "index_groups_on_manager_id"
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
+    t.bigint "group_id"
+    t.bigint "user_id"
+    t.text "content"
+    t.integer "comments_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_posts_on_group_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
@@ -128,6 +146,7 @@ ActiveRecord::Schema.define(version: 20171016071259) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "users_list"
     t.index ["organizer_id"], name: "index_spots_on_organizer_id"
   end
 
@@ -219,9 +238,13 @@ ActiveRecord::Schema.define(version: 20171016071259) do
   add_foreign_key "activations", "users"
   add_foreign_key "activities", "groups"
   add_foreign_key "activity_details", "activities"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "group_details", "groups"
   add_foreign_key "groupings", "groups"
   add_foreign_key "groupings", "users"
+  add_foreign_key "posts", "groups"
+  add_foreign_key "posts", "users"
   add_foreign_key "spot_details", "spots"
   add_foreign_key "spotings", "spots"
   add_foreign_key "spotings", "users"

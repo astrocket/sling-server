@@ -1,30 +1,30 @@
-class PostsController < ApplicationController
+class Member::PostsController < Member::ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
-  # GET /posts
+  # GET /member/posts
   def index
     @posts = Post.all
 
     render json: @posts
   end
 
-  # GET /posts/1
+  # GET /member/posts/1
   def show
-    render json: @post
+    render json: @post, serializer: PostUnitSerializer
   end
 
-  # POST /posts
+  # POST /member/posts
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
 
     if @post.save
-      render json: @post, status: :created, location: @post
+      render json: @post, serializer: PostSerializer
     else
       render json: @post.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /posts/1
+  # PATCH/PUT /member/posts/1
   def update
     if @post.update(post_params)
       render json: @post
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
+  # DELETE /member/posts/1
   def destroy
     @post.destroy
   end
@@ -46,6 +46,7 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.fetch(:post, {})
+      params.require(:post).permit(:group_id, :user_id, :content, :comments_count)
     end
+
 end

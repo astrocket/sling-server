@@ -28,14 +28,16 @@ Rails.application.routes.draw do
         post :join
       end
     end
+    resources :posts
+    resources :comments
     get 'home/index'
+    get 'users' => 'users#show'
   end
 
   namespace :manager do
     resources :groups
   end
 
-  resources :posts
   get 'home/index'
 
   get 'paygate/payform'
