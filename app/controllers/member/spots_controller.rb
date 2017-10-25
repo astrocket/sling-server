@@ -1,5 +1,5 @@
 class Member::SpotsController < Member::ApplicationController
-  before_action :set_spot, only: [:show, :join]
+  before_action :set_spot, only: [:show, :my_index_show, :join]
 
   # GET /spots
   # 참여하지 않은 스팟들 다 보여주기
@@ -18,7 +18,7 @@ class Member::SpotsController < Member::ApplicationController
   def show
     authorize [:member, @spot]
 
-    render json: @spot, serializer: SpotUnitSerializer
+    render json: @spot, serializer: SpotSampleSerializer
   end
 
   # GET /member/spots/my_index
@@ -27,6 +27,25 @@ class Member::SpotsController < Member::ApplicationController
     @spots = current_user.spots
 
     render json: @spots
+  end
+
+  # 모든 걸 싹 보게 해준다.
+  # prime.paid == false => 누르면 웹 결제로 보낸다.
+  # prime.paid == true => 다보기
+  def my_index_show
+    authorize [:member, @spot] #이렇게 부르면 policy 에서 record[1] 로 꺼내야 object 를 받을 수 있다.
+
+    render json: @spot, serializer: SpotUnitSerializer # 이미 유저가 가입 된 그룹 일 경우에 연관 데이터 전체를 뿌린다. 이 속에는 정회원이 된 그룹과, 아닌 그룹이 혼재한다. 정회원이 아닌 그룹의 경우 정회원만 할 수 있는 액션을 취할 경우에 앱단에서 결제창으로 리디렉션 시켜야 한다.
+  end
+
+  #prime 만 그룹에 조인 가능
+  # 그룹의 경우에는 조인 => 결제 가 나뉜다.
+  def join
+    authorize [:member, @spot]
+
+    @spot.users << current_user
+
+    render json: @spot, serializer: SpotUnitSerializer
   end
 
   private

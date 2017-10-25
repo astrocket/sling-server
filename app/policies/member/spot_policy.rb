@@ -7,5 +7,12 @@ class Member::SpotPolicy < Member::ApplicationPolicy
   end
 
   # record 에는 [:member, @spot] 이렇게 들어 있음
+  def join?
+    user.has_role? :prime
+  end
+
+  def my_index_show?
+    user.has_role? :prime and record[1].users.include?(user)
+  end
 
 end

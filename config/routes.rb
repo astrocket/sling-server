@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         get :my_index
       end
       member do
+        get :my_index_show
         post :join
       end
     end
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
     resources :comments
     get 'home/index'
     get 'users' => 'users#show'
+    get 'network' => 'network#index'
   end
 
   namespace :manager do

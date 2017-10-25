@@ -36,7 +36,7 @@ end
   puts "#{user.email} created !"
 end
 
-60.times.each do |i|
+80.times.each do |i|
   sex = ['girl', 'boy'].sample
   user = User.create(email: "user-prime#{i}@sling.com", password: 'gksruf')
   user.add_role :candidate

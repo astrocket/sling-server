@@ -1,5 +1,5 @@
 class Spoting < ApplicationRecord
-  after_save :set_users_list
+  after_create :set_users_list
   before_destroy :reset_users_list
 
   belongs_to :user, :counter_cache => :spots_count
@@ -11,7 +11,7 @@ class Spoting < ApplicationRecord
     new_user = {
         id: u.id,
         key: u.key,
-        :user_detail => self.user.user_detail.attributes.merge(
+        :user_detail => ud.attributes.merge(
             {
                 "pic_thumb" => ud.pic.url(:thumb),
                 "pic_medium" => ud.pic.url(:medium),

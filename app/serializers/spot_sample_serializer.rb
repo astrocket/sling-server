@@ -1,9 +1,10 @@
-class SpotSerializer < ActiveModel::Serializer
+class SpotSampleSerializer < ActiveModel::Serializer
 
   def attributes(*args)
     object.attributes.merge(
         {
             "paid" => paid_spot, # boolean : default false if not paid
+            "users_list" => spot_users,
             "organizer_info" => spot_organizer
         }
     )
@@ -18,6 +19,10 @@ class SpotSerializer < ActiveModel::Serializer
     else
       false
     end
+  end
+
+  def spot_users
+    object.users_list
   end
 
   def spot_organizer

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024061026) do
+ActiveRecord::Schema.define(version: 20171025034958) do
 
   create_table "activations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin" do |t|
     t.bigint "activity_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20171024061026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "users_list"
+    t.text "manager_info"
     t.index ["manager_id"], name: "index_groups_on_manager_id"
   end
 
@@ -147,6 +148,7 @@ ActiveRecord::Schema.define(version: 20171024061026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "users_list"
+    t.text "organizer_info"
     t.index ["organizer_id"], name: "index_spots_on_organizer_id"
   end
 

@@ -4,13 +4,13 @@ class GroupUnitSerializer < ActiveModel::Serializer
     object.attributes.merge(
         {
             "paid" => paid_group, # boolean : default false if not paid
-            "users_list" => group_users
+            "users_list" => group_users,
+            "manager_info" => group_manager
         }
     )
   end
 
   has_one :group_detail
-  has_one :manager
   has_many :activities, serializer: ActivitySerializer
   has_many :posts
   # 여기선 글들, 이미지들 까지 싹 보여진다
@@ -26,6 +26,10 @@ class GroupUnitSerializer < ActiveModel::Serializer
 
   def group_users
     object.users_list
+  end
+
+  def group_manager
+    object.manager_info
   end
 
   def posts

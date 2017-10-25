@@ -4,13 +4,13 @@ class GroupSampleSerializer < ActiveModel::Serializer
     object.attributes.merge(
         {
             "paid" => paid_group, # boolean : default false if not paid
-            "users_list" => group_users
+            "users_list" => group_users,
+            "manager" => group_manager
         }
     )
   end
 
   has_one :group_detail
-  has_one :manager
   has_many :activities, serializer: ActivitySerializer
   # 글들이나 이미지는 보여주지 않거나 제한해서 보여준다
 
@@ -25,6 +25,10 @@ class GroupSampleSerializer < ActiveModel::Serializer
 
   def group_users
     object.users_list
+  end
+
+  def group_manager
+    object.manager_info
   end
 
 end

@@ -11,7 +11,7 @@ class Grouping < ApplicationRecord
     new_user = {
         id: u.id,
         key: u.key,
-        :user_detail => self.user.user_detail.attributes.merge(
+        :user_detail => ud.attributes.merge(
             {
                 "pic_thumb" => ud.pic.url(:thumb),
                 "pic_medium" => ud.pic.url(:medium),
