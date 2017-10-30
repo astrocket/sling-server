@@ -1,7 +1,7 @@
 class Member::NetworkController < Member::ApplicationController
   def index
-    @users = User.first(5)
-    @posts = Post.first(5)
+    @users = User.last(8)
+    @posts = Post.where(group: nil).last(8)
 
     network = {
         #users: UserSerializer.new(@users),
