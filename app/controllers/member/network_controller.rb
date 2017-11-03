@@ -3,7 +3,7 @@ class Member::NetworkController < Member::ApplicationController
     if params[:page] == '1'
       @users = ActiveModel::Serializer::CollectionSerializer.new(User.last(8), each_serializer: UserSerializer)
     end
-    post_datas = Post.all.paginate(:page => params[:page], :per_page => 10)
+    post_datas = Post.where(group: nil).paginate(:page => params[:page], :per_page => 10)
     @posts = ActiveModel::Serializer::CollectionSerializer.new(post_datas, each_serializer: PostSerializer)
 
     network = {

@@ -116,10 +116,12 @@ end
 puts "==== All Spot created ! ===="
 
 # 전체 포스트 생성
-User.with_role(:prime).sample(20).each do |u|
-  p = u.posts.create!(content: "전체 공개 글 입니다-유저 #{u.id}")
-  20.times.each do |c|
-    p.comments.create!(user: u, content: "전체 공개 #{c}번째 댓글 입니다-유저 #{u.id}")
+User.with_role(:prime).all.each_with_index do |u, ui|
+  5.times.each do |p|
+    p = u.posts.create!(content: "#{ui}-#{p}전체 공개 글 입니다-유저 #{u.id}")
+    5.times.each do |c|
+      p.comments.create!(user: u, content: "전체 공개 #{c}번째 댓글 입니다-유저 #{u.id}")
+    end
   end
 end
 
