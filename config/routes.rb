@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
     resources :posts
     resources :comments
-    get 'home/index'
+    get 'home' => 'home#index'
     get 'users' => 'users#show'
     get 'network' => 'network#index'
   end

@@ -12,7 +12,7 @@ class SpotSerializer < ActiveModel::Serializer
   has_one :spot_detail
 
   def paid_spot
-    spoting = Spoting.where(spot: object, user: current_user).take
+    spoting = Spoting.where(spot: object, user: current_user).take if defined?(current_user)
     if spoting
       spoting.paid
     else

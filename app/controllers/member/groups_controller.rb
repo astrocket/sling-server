@@ -4,8 +4,9 @@ class Member::GroupsController < Member::ApplicationController
   # GET /member/groups
   # 가입 유도하는 그룹들
   # 여기서 개별 보기를 누르면 내것이 아닌 그룹이니까 show 액션에서 GroupSampleSerializer로 빠진다.
+  # TODO 나중에 잘되서 확장하게 되면 이부분에 pagination 을 넣어야 한다.
   def index
-    @groups = Group.where.not(id: current_user.groups.ids) # 추천알고리즘 나중에 ㄱ
+    @groups = Group.where.not(id: current_user.groups.ids).paginate(:page => params[:page], :per_page => 4) # 추천알고리즘 나중에 ㄱ 정확도 순서로 뱉어내게 해야함. 홈에서 미리보기할때 4개만 컷하고 전체보기로 쭉 보여주게 됨
 
     render json: @groups
   end
