@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  before_create :set_users_count
   after_create :set_manager_info
   include SearchCop
   serialize :users_list, Array
@@ -36,6 +37,14 @@ class Group < ApplicationRecord
     }.to_json
     self.manager_info = manager_info
     self.save
+  end
+
+  def set_users_count
+    self.users_count = 0
+  end
+
+  def full?
+    self.maximum <= self.users_count
   end
 
 end

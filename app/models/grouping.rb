@@ -1,9 +1,14 @@
 class Grouping < ApplicationRecord
+  before_create :already_full?
   after_create :set_users_list
   before_destroy :reset_users_list
 
   belongs_to :user, :counter_cache => :groups_count
   belongs_to :group, :counter_cache => :users_count
+
+  def already_full?
+    false if self.group.full?
+  end
 
   def set_users_list
     u = self.user

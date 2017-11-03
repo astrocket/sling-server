@@ -1,9 +1,14 @@
 class Activation < ApplicationRecord
+  before_create :already_full?
   after_save :set_users_list
   before_destroy :reset_users_list
 
   belongs_to :activity, :counter_cache => :users_count
   belongs_to :user, :counter_cache => :activities_count
+
+  def already_full?
+    false if self.activity.full?
+  end
 
   def set_users_list
     u = self.user

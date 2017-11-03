@@ -1,4 +1,5 @@
 class Spot < ApplicationRecord
+  before_create :set_users_count
   after_create :set_organizer_info
   serialize :users_list, Array
 
@@ -25,6 +26,14 @@ class Spot < ApplicationRecord
     }.to_json
     self.organizer_info = organizer_info
     self.save
+  end
+
+  def set_users_count
+    self.users_count = 0
+  end
+
+  def full?
+    self.maximum <= self.users_count
   end
 
 end

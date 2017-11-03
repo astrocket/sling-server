@@ -1,6 +1,6 @@
 class Member::ActivitiesController < Member::ApplicationController
   before_action :set_group, only: [:index]
-  before_action :set_activity, only: [:show]
+  before_action :set_activity, only: [:show, :join]
 
   # GET /activities
   def index
@@ -22,8 +22,12 @@ class Member::ActivitiesController < Member::ApplicationController
     render json: @activity, serializer: ActivityUnitSerializer
   end
 
-  def attend
+  def join
+    authorize [:member, @activity]
 
+    @activity.users << current_user
+
+    render json: @activity, serializer: ActivityUnitSerializer
   end
 
   private

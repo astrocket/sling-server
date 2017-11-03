@@ -4,7 +4,7 @@ class Member::SpotsController < Member::ApplicationController
   # GET /spots
   # 참여하지 않은 스팟들 다 보여주기
   def index
-    @spots = Spot.where.not(id: current_user.spots.ids).paginate(:page => params[:page], :per_page => 3) # 나중에 추천 알고리즘
+    @spots = Spot.where.not(id: current_user.spots.ids).paginate(:page => params[:page], :per_page => 5) # 나중에 추천 알고리즘
 
     render json: @spots
   end

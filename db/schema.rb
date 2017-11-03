@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.bigint "group_id"
     t.string "category"
     t.boolean "premium"
+    t.integer "maximum"
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.bigint "manager_id"
     t.string "category"
     t.boolean "premium"
+    t.integer "maximum"
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.bigint "organizer_id"
     t.string "category"
     t.boolean "premium"
+    t.integer "maximum"
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
