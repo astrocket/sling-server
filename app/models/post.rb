@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 
   private
 
-    def set_comments_count
-      self.comments_count = 0
-    end
+  def set_comments_count
+    self.comments_count = 0
+  end
 end

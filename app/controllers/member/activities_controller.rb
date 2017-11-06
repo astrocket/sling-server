@@ -17,7 +17,7 @@ class Member::ActivitiesController < Member::ApplicationController
 
   # GET /activities/1
   def show
-    authorize [:member, @activity]
+    # authorize [:member, @activity]
 
     render json: @activity, serializer: ActivityUnitSerializer
   end

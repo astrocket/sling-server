@@ -1,13 +1,24 @@
 class Activation < ApplicationRecord
-  before_create :already_full?
   after_save :set_users_list
   before_destroy :reset_users_list
+  validate :already_full?, on: :create
+  validate :already_joined?, on: :create
 
   belongs_to :activity, :counter_cache => :users_count
   belongs_to :user, :counter_cache => :activities_count
 
   def already_full?
-    false if self.activity.full?
+    if self.activity.full?
+      errors.add(:base, "Activity is already full") and false
+    end
+  end
+
+  def already_joined?
+    joining_user = self.user
+    default_users = self.activity.users.pluck(:id)
+    if default_users.include?(joining_user.id)
+      errors.add(:joining_user, "already joined user") and false
+    end
   end
 
   def set_users_list

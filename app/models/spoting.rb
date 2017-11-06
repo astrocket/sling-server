@@ -1,13 +1,24 @@
 class Spoting < ApplicationRecord
-  before_create :already_full?
   after_create :set_users_list
   before_destroy :reset_users_list
+  validate :already_full?, on: :create
+  validate :already_joined?, on: :create
 
   belongs_to :user, :counter_cache => :spots_count
   belongs_to :spot, :counter_cache => :users_count
 
   def already_full?
-    false if self.spot.full?
+    if self.spot.full?
+      errors.add(:base, "Activity is already full") and false
+    end
+  end
+
+  def already_joined?
+    joining_user = self.user
+    default_users = self.spot.users.pluck(:id)
+    if default_users.include?(joining_user.id)
+      errors.add(:joining_user, "already joined user") and false
+    end
   end
 
   def set_users_list

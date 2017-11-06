@@ -12,7 +12,7 @@ class Member::ActivityPolicy < Member::ApplicationPolicy
 
   # record 에는 [:member, @activity] 이렇게 들어 있음
   def show?
-    record[1].users.include?(user)
+    # record[1].users.include?(user)
   end
 
 end

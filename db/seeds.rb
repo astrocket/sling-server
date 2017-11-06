@@ -80,13 +80,13 @@ puts "==== All User created ===="
   3.times.each do |a|
     activity = Activity.create!(group: group, category: ['정모', '번개'].sample, maximum: (20..30).to_a.sample)
     activity.users << group_users.last(20).sample(10)
-    activity.create_activity_detail(name: "Activity-#{a}", about: '미래의 그룹의 액티비티 입니다. 참여해보세요.', location: '미래 cgv', schedule: DateTime.now + 3.days , pic: 'http://pds.joins.com/news/component/htmlphoto_mmdata/201309/16/htm_2013091616193924002420.jpg')
+    activity.create_activity_detail(name: "Activity-#{a}", about: '미래의 그룹의 액티비티 입니다. 참여해보세요.', location: '미래 cgv', schedule: DateTime.now + 3.days , pic: ['http://cfile26.uf.tistory.com/image/150F8A3E4F7066E70F0B36', 'http://cfile25.uf.tistory.com/image/21307F3F52F655591493CE', 'http://cfile24.uf.tistory.com/image/147625474F3858B73605C3', 'http://post.phinf.naver.net/MjAxNzA3MjhfMjMw/MDAxNTAxMjIwNzQ0NDA0.4bG6L9FF_Dp6lMduMkkGw86oiGiHXz-k9-T_iPMYpOog.PG4eUl4FCsMRVIpS0VZ5j6p_8_DQZN87uPq2YzJl1I8g.JPEG/%EB%8F%85%EC%84%9C%EB%AA%A8%EC%9E%84_11.jpg?type=w1200'].sample)
   end
 
   3.times.each do |a|
     activity = Activity.create!(group: group, category: ['정모', '번개'].sample, maximum: (20..30).to_a.sample)
     activity.users << group_users.last(20).sample(10)
-    activity.create_activity_detail(name: "Activity-#{a}", about: '과거의 그룹의 액티비티 입니다. 참여했었어야죠.', location: '과거 cgv', schedule: DateTime.now - 3.days , pic: 'http://pds.joins.com/news/component/htmlphoto_mmdata/201309/16/htm_2013091616193924002420.jpg')
+    activity.create_activity_detail(name: "Activity-#{a}", about: '과거의 그룹의 액티비티 입니다. 참여했었어야죠.', location: '과거 cgv', schedule: DateTime.now - 3.days , pic: ['http://cfile26.uf.tistory.com/image/150F8A3E4F7066E70F0B36', 'http://cfile25.uf.tistory.com/image/21307F3F52F655591493CE', 'http://cfile24.uf.tistory.com/image/147625474F3858B73605C3', 'http://post.phinf.naver.net/MjAxNzA3MjhfMjMw/MDAxNTAxMjIwNzQ0NDA0.4bG6L9FF_Dp6lMduMkkGw86oiGiHXz-k9-T_iPMYpOog.PG4eUl4FCsMRVIpS0VZ5j6p_8_DQZN87uPq2YzJl1I8g.JPEG/%EB%8F%85%EC%84%9C%EB%AA%A8%EC%9E%84_11.jpg?type=w1200'].sample)
   end
 
   #포스트 생성
