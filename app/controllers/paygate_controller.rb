@@ -27,6 +27,19 @@ class PaygateController < ApplicationRenderController
       }.to_json
 
       render json: response, status: 422
+
+    # spots_controller 에서 확인한건데 더블 체크하는 거임
+    elsif @web_product.product.full?
+      response = {
+          errors: {
+              id: :unprocessable_entity,
+              status: 422,
+              title: '이미 최대 신청 가능 인원이 초과되었습니다. (문제가 있다면 슬링 개발팀으로 연락주세요)'
+          }
+      }.to_json
+
+      render json: response, status: 422
+
     else
       render :payform
     end
@@ -50,7 +63,7 @@ class PaygateController < ApplicationRenderController
       render nothing: true, status: :unprocessable_entity
     else
       if @web_purchase.save
-        render json: @web_purchase, status: 200
+        redirect_to paygate_success_path
       else
         Rails.logger.info "AstroError = user : #{@user.id}, product : #{@web_product.id} product 결제에러 발생, 결제가 승인되었으나, 내부 서버 에러로인해 완전한 처리가 이루어지지 않았습니다."
         render nothing: true, status: :unprocessable_entity
@@ -58,13 +71,17 @@ class PaygateController < ApplicationRenderController
     end
   end
 
+  def success
+    render :success
+  end
+
   private
 
     def set_ip
       if Rails.env == 'production'
-        @ip = "https://#{ENV['SLING_EC2_DOMAIN']}" || 'http://localhost:3000'
+        @ip = "https://#{ENV['SLING_EC2_DOMAIN']}"
       else
-        @ip = 'http://localhost:3000'
+        @ip = 'http://192.168.0.3:3000'
       end
     end
 
@@ -119,7 +136,7 @@ class PaygateController < ApplicationRenderController
     end
 
     def already_purchased(user, web_product)
-      return true if web_product.product.users.exists?(user.id) # 그룹이나 스팟에 이미 들어가 있으면 구입한걸로 본다. ( 매니저가 임의로 넣어주었을 경우 포함 )
+      return true if web_product.product.paid_users.include?(user) # 그룹이나 스팟에 이미 들어가 있으면 구입한걸로 본다. ( 매니저가 임의로 넣어주었을 경우 포함 )
       return true if user.web_purchases.pluck(:web_product_id).include?(web_product.id) # 유저가 모임을 구입한 기록이 남아있을경우
       false
     end

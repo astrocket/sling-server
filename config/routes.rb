@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   get 'paygate/payform'
+  get 'paygate/success'
   post 'paygate/gateway'
   post 'paygate' => 'paygate#create'
 

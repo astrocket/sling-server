@@ -9,6 +9,13 @@ class Spot < ApplicationRecord
   has_one :spot_detail
   has_one :web_product, as: :product
 
+  scope :index, -> user { where.not( id: user.spots.ids).includes(:spot_detail).order('spot_details.schedule DESC') }
+  scope :my_index, -> user { user.spots.includes(:spot_detail).order('spot_details.schedule DESC') }
+
+  def paid_users
+    self.users.references(:spotings).where(spotings: { paid: true })
+  end
+
   def set_organizer_info
     o = self.organizer
     od = self.organizer.user_detail

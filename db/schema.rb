@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "users_list"
+    t.text "users_list", limit: 4294967295
     t.index ["group_id"], name: "index_activities_on_group_id"
   end
 
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "users_list"
+    t.text "users_list", limit: 4294967295
     t.text "manager_info"
     t.index ["manager_id"], name: "index_groups_on_manager_id"
   end
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20171025034958) do
     t.integer "users_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "users_list"
+    t.text "users_list", limit: 4294967295
     t.text "organizer_info"
     t.index ["organizer_id"], name: "index_spots_on_organizer_id"
   end

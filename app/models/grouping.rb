@@ -1,7 +1,7 @@
 class Grouping < ApplicationRecord
   after_create :set_users_list
   before_destroy :reset_users_list
-  validate :already_full?, on: :create
+  #validate :already_full?, on: :create
   validate :already_joined?, on: :create
 
   belongs_to :user, :counter_cache => :groups_count

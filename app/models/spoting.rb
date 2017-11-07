@@ -9,7 +9,7 @@ class Spoting < ApplicationRecord
 
   def already_full?
     if self.spot.full?
-      errors.add(:base, "Activity is already full") and false
+      errors.add(:base, "Spot is already full") and false
     end
   end
 

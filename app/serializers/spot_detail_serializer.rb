@@ -1,12 +1,13 @@
 class SpotDetailSerializer < ActiveModel::Serializer
 
   def attributes(*args)
-    object.attributes.merge(
+    object.attributes.except(:schedule).merge(
         {
             "pic_thumb" => pic_thumb,
             "pic_medium" => pic_medium,
             "pic_large" => pic_large,
-            "pic_original" => pic_original
+            "pic_original" => pic_original,
+            "schedule" => custom_schedule,
         }
     )
   end
@@ -25,6 +26,10 @@ class SpotDetailSerializer < ActiveModel::Serializer
 
   def pic_original
     object.pic.url
+  end
+
+  def custom_schedule
+    object.schedule.strftime("%m/%d %I:%M%p")
   end
 
 end

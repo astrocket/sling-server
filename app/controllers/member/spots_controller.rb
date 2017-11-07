@@ -4,7 +4,7 @@ class Member::SpotsController < Member::ApplicationController
   # GET /spots
   # 참여하지 않은 스팟들 다 보여주기
   def index
-    @spots = Spot.where.not(id: current_user.spots.ids).paginate(:page => params[:page], :per_page => 5) # 나중에 추천 알고리즘
+    @spots = Spot.index(current_user).paginate(:page => params[:page], :per_page => 5) # 나중에 추천 알고리즘
 
     render json: @spots
   end
@@ -24,7 +24,7 @@ class Member::SpotsController < Member::ApplicationController
   # GET /member/spots/my_index
   # 내가 신청한 스팟만 보인다. 스팟은 무조건 결제를 해야지만 신청이 되는게 맞다.
   def my_index
-    @spots = current_user.spots
+    @spots = Spot.my_index(current_user)
 
     render json: @spots
   end
@@ -43,9 +43,35 @@ class Member::SpotsController < Member::ApplicationController
   def join
     authorize [:member, @spot]
 
-    @spot.users << current_user
+    if @spot.paid_users.include?(current_user)
+      response = {
+          errors: {
+              id: :unprocessable_entity,
+              status: 422,
+              title: '이미 신청이 완료 된 스팟 입니다. (문제가 있다면 슬링 개발팀으로 연락주세요)'
+          }
+      }.to_json
 
-    render json: @spot, serializer: SpotUnitSerializer
+      render json: response, status: 422
+    elsif @spot.full?
+      response = {
+          errors: {
+              id: :unprocessable_entity,
+              status: 422,
+              title: '이미 최대 신청 가능 인원이 초과되었습니다. (문제가 있다면 슬링 개발팀으로 연락주세요)'
+          }
+      }.to_json
+
+      render json: response, status: 422
+    else
+      response = {
+          paygate: {
+              url: "?spot_id=#{@spot.id}&key=#{current_user.key}"
+          }
+      }
+
+      render json: response
+    end
   end
 
   private

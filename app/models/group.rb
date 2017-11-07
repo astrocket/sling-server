@@ -16,8 +16,12 @@ class Group < ApplicationRecord
     attributes group_detail: ["group_detail.name", "group_detail.about"]
   end
 
+  scope :index, -> user { where.not( id: user.groups.ids) }
+  scope :my_index, -> user { user.groups.references(:groupings).order('groupings.paid DESC') }
+
+  # model.options.references( :model_options ).where( model_options: { active: true })
   def paid_users
-    self.users
+    self.users.references(:groupings).where(groupings: { paid: true })
   end
 
   def set_manager_info
@@ -44,7 +48,7 @@ class Group < ApplicationRecord
   end
 
   def full?
-    self.maximum <= self.users_count
+    self.maximum <= self.groupings.pluck(:paid).count(true)
   end
 
 end

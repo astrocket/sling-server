@@ -4,9 +4,8 @@ class Member::GroupsController < Member::ApplicationController
   # GET /member/groups
   # 가입 유도하는 그룹들
   # 여기서 개별 보기를 누르면 내것이 아닌 그룹이니까 show 액션에서 GroupSampleSerializer로 빠진다.
-  # TODO 나중에 잘되서 확장하게 되면 이부분에 pagination 을 넣어야 한다.
   def index
-    @groups = Group.where.not(id: current_user.groups.ids).paginate(:page => params[:page], :per_page => 5) # 추천알고리즘 나중에 ㄱ 정확도 순서로 뱉어내게 해야함. 홈에서 미리보기할때 4개만 컷하고 전체보기로 쭉 보여주게 됨
+    @groups = Group.index(current_user).paginate(:page => params[:page], :per_page => 5) # 추천알고리즘 나중에 ㄱ 정확도 순서로 뱉어내게 해야함. 홈에서 미리보기할때 4개만 컷하고 전체보기로 쭉 보여주게 됨
 
     render json: @groups
   end
@@ -25,7 +24,7 @@ class Member::GroupsController < Member::ApplicationController
   # 내가 가입한 그룹 중 결제한 그룹과 결제하지 않은 그룹 모두 보여진다. paid 로 구분
   # 정회원인지 아닌지를 보여줘야한다. 카드에서 꼬리표같은 느낌으로
   def my_index
-    @groups = current_user.groups
+    @groups = Group.my_index(current_user)
 
     render json: @groups
   end
@@ -64,6 +63,12 @@ class Member::GroupsController < Member::ApplicationController
     @group.users << current_user
 
     render json: @group, serializer: GroupUnitSerializer
+  end
+
+  def upgrade
+    authorize [:member, @group]
+
+
   end
 
   private
