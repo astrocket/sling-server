@@ -64,9 +64,10 @@ class Member::SpotsController < Member::ApplicationController
 
       render json: response, status: 422
     else
+      ## 유저의 동시 신청문제를 해결하기 위해서 여기에서 일종의 펜딩상태를 만들어야 함 5분 안으로 결제가이루어지지 않으면 pending이 무효화 되도록 해야한다.
       response = {
           paygate: {
-              url: "?spot_id=#{@spot.id}&key=#{current_user.key}"
+              product_id: @spot.web_product.id
           }
       }
 

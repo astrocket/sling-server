@@ -22,7 +22,7 @@ else
 =end
   Paperclip::Attachment.default_options.merge!(
       {
-          url: "http://192.168.0.3:3000/system/:class/:id/:attachment/:style/:filename",
+          url: "http://172.20.10.4:3000/system/:class/:id/:attachment/:style/:filename",
       }
   )
 end
